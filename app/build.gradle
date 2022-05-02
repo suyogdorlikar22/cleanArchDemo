@@ -1,0 +1,111 @@
+plugins {
+    id 'kotlin-kapt'
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'dagger.hilt.android.plugin'
+}
+
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdk rootProject.ext.compile_sdk_version
+
+    defaultConfig {
+        applicationId "com.shayu.cleanarchdemo"
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    /*productFlavors {
+        staging {
+            applicationIdSuffix ".staging"
+            buildConfigField 'String', 'GOOGLE_APIS_ENDPOINT', '"https://www.googleapis.com/"'
+        }
+
+        prod {
+            buildConfigField 'String', 'GOOGLE_APIS_ENDPOINT', '"https://www.googleapis.com/"'
+        }
+    }*/
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    composeOptions {
+        kotlinCompilerVersion kotlin_version
+
+        kotlinCompilerExtensionVersion jetpac_compose_version
+    }
+    buildFeatures {
+        compose true
+    }
+}
+
+dependencies {
+    implementation project(':network')
+
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.core:core-ktx:$androidx_core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+
+    // Navigation components
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Glide for image caching
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    // Logging
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    // View model
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtx_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelKtx_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewModelKtx_version"
+
+
+    implementation 'com.xwray:groupie:2.8.1'
+    implementation 'com.xwray:groupie-kotlin-android-extensions:2.3.0'
+    implementation 'com.xwray:groupie-databinding:2.3.0'
+
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
+    implementation "androidx.constraintlayout:constraintlayout-compose:$compose_constraint"
+
+    // Jetpac compose
+    implementation "androidx.activity:activity-compose:$jetpac_compose_activity_version"
+    implementation "androidx.compose.ui:ui:$jetpac_compose_version"
+    implementation "androidx.compose.foundation:foundation:$jetpac_compose_version"
+    implementation "androidx.compose.foundation:foundation-layout:$jetpac_compose_version"
+    implementation "androidx.compose.runtime:runtime:$jetpac_compose_version"
+    implementation "androidx.compose.material:material:$jetpac_compose_version"
+    implementation "androidx.compose.animation:animation:$jetpac_compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$jetpac_compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$jetpac_compose_version"
+
+    //Coil image loding
+    implementation("io.coil-kt:coil:1.3.0")
+
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+
+}
